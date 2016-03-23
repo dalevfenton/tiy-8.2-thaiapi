@@ -3,10 +3,11 @@ FORMAT: 1A
 # MajesticThai
 
 This is an api allowing a restaurant to build it's interactive menu and track orders
+#Group Menu Items
 
-## Menu Items Collection [/menuitems]
+## Menu Items [/menuitems]
 
-### List All Menu Items [GET]
+### Get All Menu Items [GET]
 
 + Response 200 (application/json)
  
@@ -79,9 +80,277 @@ This is an api allowing a restaurant to build it's interactive menu and track or
 + Response 200 (application/json)
 
         {
-            "id": "100", 
-            "title": "Soda", 
-            "type": "beverages", 
-            "price": "2.5", 
-            "options": [["Coca-Cola", "Sprite", "Dr. Pepper", "Surge"]]
+            "id": "130", 
+            "title": "Pad Thai",
+            "type": "noodle dishes",
+            "description": "Stir-fried Thai rice noodles with brown tofu, eggs, bean sprouts, scallions and crushed peanuts. Served with your choice of protein or vegetable.",
+            "price": "10.5",
+            "options": [
+                ["Beef", "Chicken", "Shrimp", "Duck", "Tofu", "Vegetable and Rice"],
+                ["Mild", "Medium", "Hot"]
+            ]
+        }
+        
+#Group Orders
+
+##Orders [/orders]
+
+### Create An Order [POST]
+
++ Request (application/json)
+
+        {
+            "order": [
+                { 
+                "title": "Green Papaya Salad",
+                "price": "6.5",
+                "numOrdered": "1",
+                "options": ["Chili Lime Dressing"]
+                },
+                {
+                "title": "Red Curry",
+                "price": "10.5",
+                "numOrdered": "2",
+                "options": ["Chicken", "Medium"]
+                }
+            ],
+            "customer": {
+                "firstname":"Roger",
+                "lastname":"Federer",
+                "phone":"555-555-5555",
+                "email":"fed@nike.com",
+                "addressln1":"223 Tennis Ln",
+                "aptste":"20A",
+                "city":"Somewhere",
+                "st":"FL",
+                "zip":"55555",
+                "additionalinfo":"gate code is 0501*,
+                "tip":"10.00"
+            },
+            "status": {
+                "orderedAt": "2016-03-16T08:40:51.620Z",
+                "preparing": false,
+                "prepared":false,
+                "delivering":false,
+                "delivered":false
+            }
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /orders/1
+
+    + Body
+
+            {
+                "id": "1",
+                "published_at": "2016-03-16T08:40:55.634Z",
+                "url": "/orders/1",
+                "order": [
+                    { 
+                    "title": "Green Papaya Salad",
+                    "price": "6.5",
+                    "numOrdered": "1",
+                    "options": ["Chili Lime Dressing"]
+                    },
+                    {
+                    "title": "Red Curry",
+                    "price": "10.5",
+                    "numOrdered": "2",
+                    "options": ["Chicken", "Medium"]
+                    }
+                ],
+                "customer": {
+                    "firstname":"Roger",
+                    "lastname":"Federer",
+                    "phone":"555-555-5555",
+                    "email":"fed@nike.com",
+                    "addressln1":"223 Tennis Ln",
+                    "aptste":"20A",
+                    "city":"Somewhere",
+                    "st":"FL",
+                    "zip":"55555",
+                    "additionalinfo":"gate code is 0501*,
+                    "tip":"10.00"
+                },
+                "status": {
+                    "orderedAt": "2016-03-16T08:40:51.620Z",
+                    "preparing": false,
+                    "prepared":false,
+                    "delivering":false,
+                    "delivered":false
+                }
+            }
+            
+
+### Get All Orders [GET]
+
++ Response 200 (application/json)
+ 
+        {
+            "orders":[
+                {
+                "id": "1",
+                "published_at": "2016-03-16T08:40:55.634Z",
+                "url": "/orders/1",
+                "order": [
+                    {
+                    "title":"Green Papaya Salad",
+                    "price":"6.5",
+                    "options":["Chili Lime Dressing"],
+                    "numOrdered":"3"}
+                ],
+                "customer": {
+                    "firstname":"Roger",
+                    "lastname":"Federer",
+                    "phone":"555-555-5555",
+                    "email":"fed@nike.com",
+                    "addressln1":"223 Tennis Ln",
+                    "aptste":"",
+                    "city":"Somewhere",
+                    "st":"SW",
+                    "zip":"55555",
+                    "additionalinfo":"do stuff",
+                    "tip":"100"
+                },
+                "status": {
+                    "orderedAt": "2016-03-16T08:40:51.620Z",
+                    "preparing":false,
+                    "prepared":false,
+                    "delivering":false,
+                    "delivered":false
+                }},
+                {
+                "id": "2",
+                "published_at": "2016-03-16T08:40:55.634Z",
+                "url": "/orders/2",
+                "order": [
+                    {
+                        "title":"Sesame Tofu",
+                        "price":"5",
+                        "options":["Mild"],
+                        "numOrdered":1
+                    },
+                    {
+                        "title":"Curry Puffs",
+                        "price":"6",
+                        "options":["Mild"],
+                        "numOrdered":1
+                    }
+                ],
+                "customer": {
+                    "firstname":"John",
+                    "lastname":"Williams",
+                    "phone":"4046062648",
+                    "email":"",
+                    "addressln1":"39 John St",
+                    "aptste":"",
+                    "city":"Charleston",
+                    "st":"South Carolina",
+                    "zip":"29403",
+                    "additionalinfo":"",
+                    "tip":""
+                },
+                "status": {
+                    "orderedAt": "2016-03-16T08:40:51.620Z",
+                    "preparing":true,
+                    "prepared":true,
+                    "delivering":true,
+                    "delivered":true
+                }},
+                {
+                "id": "3",
+                "published_at": "2016-03-16T08:40:55.634Z",
+                "url": "/orders/3",
+                "order": [
+                    {
+                    "title":"Soda",
+                    "price":"2.5",
+                    "options":["Coca-Cola"],
+                    "numOrdered":1
+                    },
+                    {
+                    "title":"Curry Puffs",
+                    "price":"6",
+                    "options":["Mild"],
+                    "numOrdered":1
+                    },
+                    {
+                    "title":"Jeeb Dumplings",
+                    "price":"5.5",
+                    "options":["Medium"],
+                    "numOrdered":1}
+                ],
+                "customer": {
+                    "firstname":"John",
+                    "lastname":"Williams",
+                    "phone":"4046062648",
+                    "email":"",
+                    "addressln1":"39 John St",
+                    "aptste":"",
+                    "city":"Charleston",
+                    "st":"South Carolina",
+                    "zip":"29403",
+                    "additionalinfo":"",
+                    "tip":""
+                },
+                "status": {
+                    "orderedAt": "2016-03-16T08:40:51.620Z",
+                    "preparing":true,
+                    "prepared":true,
+                    "delivering":false,
+                    "delivered":false}
+                }
+            ]
+        }
+
+### Single Order [/orders/{id}]
+    
++ Parameters
+    + id (number) - ID of the Order in the form of an integer
+
+### Get Single Order [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": "1",
+            "published_at": "2016-03-16T08:40:55.634Z",
+            "url": "/orders/1",
+            "order": [
+                {
+                    "title":"Green Papaya Salad",
+                    "price":"6.5",
+                    "options":["Chili Lime Dressing"],
+                    "numOrdered":"3"
+                },
+                {
+                    "title":"Curry Puffs",
+                    "price":"6",
+                    "options":["Mild"],
+                    "numOrdered":1
+                }
+            ],
+            "customer": {
+                "firstname":"Roger",
+                "lastname":"Federer",
+                "phone":"555-555-5555",
+                "email":"fed@nike.com",
+                "addressln1":"223 Tennis Ln",
+                "aptste":"",
+                "city":"Somewhere",
+                "st":"SW",
+                "zip":"55555",
+                "additionalinfo":"do stuff",
+                "tip":"100"
+            },
+            "status": {
+                "orderedAt": "2016-03-16T08:40:51.620Z",
+                "preparing":false,
+                "prepared":false,
+                "delivering":false,
+                "delivered":false
+            }
         }
