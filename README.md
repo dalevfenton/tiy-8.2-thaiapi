@@ -1,1 +1,2 @@
-# tiy-8.2-thaiapi
+# API specification built with Apiary
+https://app.apiary.io/majesticthai10/
